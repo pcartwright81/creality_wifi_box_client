@@ -1,1 +1,1 @@
-Soap API for Here Comes the Bus  Based on methods captured from Android Application.
+API for the Creality Wifi box.
