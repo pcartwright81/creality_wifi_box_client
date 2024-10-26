@@ -1,4 +1,5 @@
 """Tests for the client."""
+
 import unittest
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -16,7 +17,7 @@ class TestCrealityWifiBoxClient(unittest.TestCase):
         self.client = CrealityWifiBoxClient("192.168.1.55", 81)
 
     @patch("aiohttp.ClientSession.get")
-    async def test_get_info(self, mock_get: MagicMock) -> None:  # noqa: C901, PLR0912, PLR0915 Huge object.
+    async def test_get_info(self, mock_get: MagicMock) -> None:
         """Test getting device information."""
         mock_response = AsyncMock()
         mock_response.text = AsyncMock(
