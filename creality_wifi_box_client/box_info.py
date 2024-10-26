@@ -16,6 +16,18 @@ def _from_int(x: Any) -> int:
     return x
 
 
+def _from_bool(x: Any) -> bool:
+    assert isinstance(x, int)  # noqa: S101
+    return bool(x)
+
+
+def _from_int_str(x: Any) -> int:
+    value = _from_str(x)
+    if value == "":
+        return 0
+    return int(value)
+
+
 class BoxInfo:
     """The class to hold the box information."""
 
@@ -80,7 +92,7 @@ class BoxInfo:
     consumables_len: int
     total_layer: int
     led_state: int
-    error: int
+    error: bool
 
     def __init__(  # noqa: PLR0913, PLR0915 Too many statements...Creality.
         self,
@@ -209,7 +221,7 @@ class BoxInfo:
         self.consumables_len = consumables_len
         self.total_layer = total_layer
         self.led_state = led_state
-        self.error = error
+        self.error = bool(error)
 
     @staticmethod
     def from_dict(obj: Any) -> "BoxInfo":  # noqa: PLR0915 Agree, but not my monkey.
@@ -272,10 +284,10 @@ class BoxInfo:
         print_job_time = _from_int(obj.get("printJobTime"))
         net_ip = _from_str(obj.get("netIP"))
         filament_type = _from_str(obj.get("FilamentType"))
-        consumables_len = int(_from_str(obj.get("ConsumablesLen")))
+        consumables_len = _from_int_str(obj.get("ConsumablesLen"))
         total_layer = _from_int(obj.get("TotalLayer"))
         led_state = _from_int(obj.get("led_state"))
-        error = _from_int(obj.get("error"))
+        error = _from_bool(obj.get("error"))
         return BoxInfo(
             opt,
             fname,
