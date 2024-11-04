@@ -28,23 +28,23 @@ class CrealityWifiBoxClient:
         url = f"{self.base_url}?fname=net&opt=iot_conf&function=set&pause=1"
         async with aiohttp.ClientSession() as session, session.get(url) as response:
             response_text = await response.text()
-            return CrealityWifiBoxClient._parse_error_message_from_json(response_text)
+            return self.error_message_to_success(response_text)
 
     async def resume_print(self) -> bool:
         """Resume the current print job."""
         url = f"{self.base_url}?fname=net&opt=iot_conf&function=set&pause=0"
         async with aiohttp.ClientSession() as session, session.get(url) as response:
             response_text = await response.text()
-            return CrealityWifiBoxClient._parse_error_message_from_json(response_text)
+            return self.error_message_to_success(response_text)
 
     async def stop_print(self) -> bool:
         """Stop the current print job."""
         url = f"{self.base_url}?fname=net&opt=iot_conf&function=set&stop=1"
         async with aiohttp.ClientSession() as session, session.get(url) as response:
             response_text = await response.text()
-        return CrealityWifiBoxClient._parse_error_message_from_json(response_text)
+            return self.error_message_to_success(response_text)
 
-    @staticmethod
-    def _parse_error_message_from_json(json_string: str) -> bool:
+    def error_message_to_success(self, json_string: str) -> bool:
+        """Get the error status an returns a bool."""
         value = json.loads(json_string).get("error")
-        return bool(value)
+        return not bool(value)

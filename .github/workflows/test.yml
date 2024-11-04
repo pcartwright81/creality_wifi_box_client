@@ -30,3 +30,9 @@ jobs:
       - name: Tests suite
         run: |
           pytest -p no:sugar
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4.5.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          env_vars: OS,PYTHON
+          verbose: true

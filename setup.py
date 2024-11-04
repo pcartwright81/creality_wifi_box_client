@@ -9,7 +9,7 @@ with Path("README.md").open() as fh:
 
 setuptools.setup(
     name="creality_wifi_box_client",
-    version="0.0.2",
+    version="0.0.3",
     author="Patrick Cartwright",
     author_email="pcartwright1981@gmail.com",
     description="Client for Creality Wifi Box",
