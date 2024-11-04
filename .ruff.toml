@@ -25,3 +25,8 @@ keep-runtime-typing = true
 
 [lint.mccabe]
 max-complexity = 25
+
+[lint.per-file-ignores]
+# Ignore `S101` (use of assert)` and `SLF001` (private members)` in path/to/file.py`.
+"tests/test_box_info.py" = ["S101","SLF001","PT009"]
+"tests/test_wifi_box_client.py" = ["S101","PT009"]
