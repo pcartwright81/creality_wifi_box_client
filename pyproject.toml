@@ -9,7 +9,7 @@ norecursedirs = [
     "testing_config",
 ]
 
-addopts = "--cov-report=xml:coverage.xml --cov-report=term-missing --cov=hcb_soap_client --cov-fail-under=100"
+addopts = "--cov-report=xml:coverage.xml --cov-report=term-missing --cov=creality_wifi_box_client --cov-fail-under=100"
 
 [tool.coverage.report]
 exclude_also = [
