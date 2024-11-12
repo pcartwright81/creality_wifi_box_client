@@ -23,7 +23,7 @@ class TestFromStr(unittest.TestCase):
 
     def test_invalid_input(self) -> None:
         """Test that the method raises a TypeError."""
-        with pytest.raises(AssertionError):
+        with pytest.raises(TypeError):
             _from_str(123)
 
 
@@ -36,12 +36,12 @@ class TestFromInt(unittest.TestCase):
 
     def test_bool_input(self) -> None:
         """Test that the method raises a TypeError."""
-        with pytest.raises(AssertionError):
-            _from_int(True)  # noqa: FBT003
+        with pytest.raises(TypeError):
+            _from_int(True)  # noqa: FBT003 (positional boolean argument)
 
     def test_invalid_input(self) -> None:
         """Test that the method raises a TypeError."""
-        with pytest.raises(AssertionError):
+        with pytest.raises(TypeError):
             _from_int("test")
 
 
@@ -58,7 +58,7 @@ class TestFromBool(unittest.TestCase):
 
     def test_invalid_input(self) -> None:
         """Test that the method raises a TypeError."""
-        with pytest.raises(AssertionError):
+        with pytest.raises(TypeError):
             _from_bool("test")
 
 
@@ -75,7 +75,7 @@ class TestFromIntStr(unittest.TestCase):
 
     def test_invalid_input(self) -> None:
         """Test that the method raises a TypeError."""
-        with pytest.raises(AssertionError):
+        with pytest.raises(TypeError):
             _from_int_str(123)
 
 

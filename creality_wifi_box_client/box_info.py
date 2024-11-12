@@ -1,23 +1,32 @@
 """The info object for the wifi box."""
 
+from dataclasses import dataclass
 from typing import Any, TypeVar
 
 T = TypeVar("T")
 
 
 def _from_str(x: Any) -> str:
-    assert isinstance(x, str)  # noqa: S101
+    if not isinstance(x, str):
+        error_message = f"Expected str, got {type(x).__name__}"
+        raise TypeError(error_message)
     return x
 
 
 def _from_int(x: Any) -> int:
-    assert isinstance(x, int)  # noqa: S101
-    assert not isinstance(x, bool)  # noqa: S101
+    if not isinstance(x, int):
+        error_message = f"Expected int, got {type(x).__name__}"
+        raise TypeError(error_message)
+    if isinstance(x, bool):
+        error_message = "Expected int, got bool"
+        raise TypeError(error_message)
     return x
 
 
 def _from_bool(x: Any) -> bool:
-    assert isinstance(x, int)  # noqa: S101
+    if not isinstance(x, int):
+        error_message = f"Expected int, got {type(x).__name__}"
+        raise TypeError(error_message)
     return bool(x)
 
 
@@ -28,6 +37,7 @@ def _from_int_str(x: Any) -> int:
     return int(value)
 
 
+@dataclass
 class BoxInfo:
     """The class to hold the box information."""
 
@@ -58,7 +68,7 @@ class BoxInfo:
     the_1_st_nozzle_temp2: int
     the_2_nd_nozzle_temp2: int
     chamber_temp2: int
-    print: str
+    print_name: str
     print_progress: int
     stop: int
     print_start_time: int
@@ -94,137 +104,8 @@ class BoxInfo:
     led_state: int
     error: bool
 
-    def __init__(  # noqa: PLR0913, PLR0915 Too many statements...Creality.
-        self,
-        opt: str,
-        fname: str,
-        function: str,
-        wanmode: str,
-        wanphy_link: int,
-        link_status: int,
-        wanip: str,
-        ssid: str,
-        channel: int,
-        security: int,
-        wifipasswd: str,
-        apclissid: str,
-        apclimac: str,
-        iot_type: str,
-        connect: int,
-        model: str,
-        fan: int,
-        nozzle_temp: int,
-        bed_temp: int,
-        the_1_st_nozzle_temp: int,
-        the_2_nd_nozzle_temp: int,
-        chamber_temp: int,
-        nozzle_temp2: int,
-        bed_temp2: int,
-        the_1_st_nozzle_temp2: int,
-        the_2_nd_nozzle_temp2: int,
-        chamber_temp2: int,
-        print_name: str,
-        print_progress: int,
-        stop: int,
-        print_start_time: int,
-        state: int,
-        err: int,
-        box_version: str,
-        upgrade: str,
-        upgrade_status: int,
-        tf_card: int,
-        d_progress: int,
-        layer: int,
-        pause: int,
-        reboot: int,
-        video: int,
-        did_string: str,
-        api_license: str,
-        init_string: str,
-        printed_times: int,
-        times_left_to_print: int,
-        owner_id: str,
-        cur_feedrate_pct: int,
-        cur_position: str,
-        autohome: int,
-        repo_plr_status: int,
-        model_version: str,
-        mcu_is_print: int,
-        print_left_time: int,
-        print_job_time: int,
-        net_ip: str,
-        filament_type: str,
-        consumables_len: int,
-        total_layer: int,
-        led_state: int,
-        error: int,
-    ) -> None:
-        """Initialize a new object."""
-        self.opt = opt
-        self.fname = fname
-        self.function = function
-        self.wanmode = wanmode
-        self.wanphy_link = wanphy_link
-        self.link_status = link_status
-        self.wanip = wanip
-        self.ssid = ssid
-        self.channel = channel
-        self.security = security
-        self.wifipasswd = wifipasswd
-        self.apclissid = apclissid
-        self.apclimac = apclimac
-        self.iot_type = iot_type
-        self.connect = connect
-        self.model = model
-        self.fan = fan
-        self.nozzle_temp = nozzle_temp
-        self.bed_temp = bed_temp
-        self.the_1_st_nozzle_temp = the_1_st_nozzle_temp
-        self.the_2_nd_nozzle_temp = the_2_nd_nozzle_temp
-        self.chamber_temp = chamber_temp
-        self.nozzle_temp2 = nozzle_temp2
-        self.bed_temp2 = bed_temp2
-        self.the_1_st_nozzle_temp2 = the_1_st_nozzle_temp2
-        self.the_2_nd_nozzle_temp2 = the_2_nd_nozzle_temp2
-        self.chamber_temp2 = chamber_temp2
-        self.print_name = print_name
-        self.print_progress = print_progress
-        self.stop = stop
-        self.print_start_time = print_start_time
-        self.state = state
-        self.err = err
-        self.box_version = box_version
-        self.upgrade = upgrade
-        self.upgrade_status = upgrade_status
-        self.tf_card = tf_card
-        self.d_progress = d_progress
-        self.layer = layer
-        self.pause = pause
-        self.reboot = reboot
-        self.video = video
-        self.did_string = did_string
-        self.api_license = api_license
-        self.init_string = init_string
-        self.printed_times = printed_times
-        self.times_left_to_print = times_left_to_print
-        self.owner_id = owner_id
-        self.cur_feedrate_pct = cur_feedrate_pct
-        self.cur_position = cur_position
-        self.autohome = autohome
-        self.repo_plr_status = repo_plr_status
-        self.model_version = model_version
-        self.mcu_is_print = mcu_is_print
-        self.print_left_time = print_left_time
-        self.print_job_time = print_job_time
-        self.net_ip = net_ip
-        self.filament_type = filament_type
-        self.consumables_len = consumables_len
-        self.total_layer = total_layer
-        self.led_state = led_state
-        self.error = bool(error)
-
     @staticmethod
-    def from_dict(obj: Any) -> "BoxInfo":  # noqa: PLR0915 Agree, but not my monkey.
+    def from_dict(obj: Any) -> "BoxInfo":  # noqa: PLR0915 (ignore too many return statements)
         """Convert to an object from a dictionary."""
         opt = _from_str(obj.get("opt"))
         fname = _from_str(obj.get("fname"))
