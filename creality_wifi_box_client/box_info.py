@@ -1,7 +1,5 @@
 """The info object for the wifi box."""
 
-from typing import Any
-
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -73,7 +71,7 @@ class BoxInfo(BaseModel):
 
     @field_validator("consumables_len", mode="before")
     @classmethod
-    def parse_empty_string_int(cls, v: Any) -> Any:
+    def parse_empty_string_int(cls, v: str) -> str:
         """Handle empty strings for integer fields."""
         if v == "":
             return 0
