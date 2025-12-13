@@ -114,9 +114,7 @@ async def test_pause_print(
         return '{"error": 0}'
 
     mock_get.return_value.__aenter__.return_value.text = mock_response
-    success = await creality_wifi_box_client.pause_print()
-
-    assert success is True
+    assert await creality_wifi_box_client.pause_print()
 
 
 @patch("aiohttp.ClientSession.get")
@@ -129,9 +127,7 @@ async def test_resume_print(
         return '{"error": 0}'
 
     mock_get.return_value.__aenter__.return_value.text = mock_response
-    success = await creality_wifi_box_client.resume_print()
-
-    assert success is True
+    assert await creality_wifi_box_client.resume_print()
 
 
 @patch("aiohttp.ClientSession.get")
@@ -144,9 +140,7 @@ async def test_stop_print(
         return '{"error": 0}'
 
     mock_get.return_value.__aenter__.return_value.text = mock_response
-    success = await creality_wifi_box_client.stop_print()
-
-    assert success is True
+    assert await creality_wifi_box_client.stop_print()
 
 
 async def test_error_message_to_success_true(
@@ -154,7 +148,7 @@ async def test_error_message_to_success_true(
 ) -> None:
     """Test error_message_to_bool returns True when error is 0."""
     json_string = '{"error": 0}'
-    assert creality_wifi_box_client.error_message_to_success(json_string) is True
+    assert creality_wifi_box_client.error_message_to_success(json_string)
 
 
 async def test_error_message_to_success_false(
@@ -162,4 +156,4 @@ async def test_error_message_to_success_false(
 ) -> None:
     """Test error_message_to_bool returns False when error is not 0."""
     json_string = '{"error": 1}'
-    assert creality_wifi_box_client.error_message_to_success(json_string) is False
+    assert not creality_wifi_box_client.error_message_to_success(json_string)
