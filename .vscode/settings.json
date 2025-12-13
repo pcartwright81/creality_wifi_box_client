@@ -1,7 +1,4 @@
 {
-    "github-actions.workflows.pinned.workflows": [
-        ".github/workflows/python-publish.yml"
-    ],
     "python.testing.pytestArgs": [
         "tests"
     ],

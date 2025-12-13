@@ -5,19 +5,18 @@
     "version": "0.2.0",
     "configurations": [
 
-
+        {
+            "name": "Client",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "creality_wifi_box_client.${fileBasenameNoExtension}"
+        },
         {
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
-        },
-        {
-            "name": "Client",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "creality_wifi_box_client.${fileBasenameNoExtension}"
-        }
+        }        
     ]
 }

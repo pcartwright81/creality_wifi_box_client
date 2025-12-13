@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Ensure Python Environment",
+            "type": "shell",
+            "windows": {
+                "command": "if (-not (Test-Path .venv)) { python -m venv .venv }; . .\\.venv\\Scripts\\Activate.ps1; python -m pip install --upgrade pip; python -m pip install -e .[test,dev]"
+            },
+            "linux": {
+                "command": "if [ ! -d \".venv\" ]; then python3 -m venv .venv; fi && . .venv/bin/activate && python -m pip install --upgrade pip && python -m pip install -e .[test,dev]"
+            },
+            "osx": {
+                "command": "if [ ! -d \".venv\" ]; then python3 -m venv .venv; fi && . .venv/bin/activate && python -m pip install --upgrade pip && python -m pip install -e .[test,dev]"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Lint",
+            "type": "shell",
+            "dependsOn": "Ensure Python Environment",
+            "windows": {
+                "command": ". .\\.venv\\Scripts\\Activate.ps1; ruff format .; ruff check . --fix"
+            },
+            "linux": {
+                "command": ". .venv/bin/activate && ruff format . && ruff check . --fix"
+            },
+            "osx": {
+                "command": ". .venv/bin/activate && ruff format . && ruff check . --fix"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
