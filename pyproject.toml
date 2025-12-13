@@ -63,7 +63,7 @@ max-complexity = 25
 
 [tool.ruff.lint.per-file-ignores]
 # Ignore `S101` (assert), `SLF001` (private access), and `PT009` (unittest assertions) in all test files
-"tests/**/*.py" = ["S101", "SLF001", "PT009"]
+"tests/**/*.py" = ["S101", "SLF001", "PT009", "PLR2004"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
