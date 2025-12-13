@@ -21,7 +21,7 @@ class CrealityWifiBoxClient:
         url = f"{self.base_url}?fname=Info&opt=main&function=get"
         async with aiohttp.ClientSession() as session, session.get(url) as response:
             response_text = await response.text()
-            return BoxInfo.from_dict(json.loads(response_text))
+            return BoxInfo.model_validate(json.loads(response_text))
 
     async def pause_print(self) -> bool:
         """Pause the current print job."""

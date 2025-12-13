@@ -1,1 +1,4 @@
 *__pycache__
+creality_wifi_box_client.egg-info/*
+.coverage
+coverage.xml

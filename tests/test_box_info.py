@@ -3,88 +3,15 @@
 import unittest
 from typing import Any
 
-import pytest
-
-from creality_wifi_box_client.box_info import (
-    BoxInfo,
-    _from_bool,
-    _from_int,
-    _from_int_str,
-    _from_str,
-)
-
-
-class TestFromStr(unittest.TestCase):
-    """Test the _from_str method."""
-
-    def test_valid_input(self) -> None:
-        """Test that the method returns the expected value."""
-        self.assertEqual(_from_str("test"), "test")
-
-    def test_invalid_input(self) -> None:
-        """Test that the method raises a TypeError."""
-        with pytest.raises(TypeError):
-            _from_str(123)
-
-
-class TestFromInt(unittest.TestCase):
-    """Test the _from_int method."""
-
-    def test_valid_input(self) -> None:
-        """Test that the method returns the expected value."""
-        self.assertEqual(_from_int(123), 123)
-
-    def test_bool_input(self) -> None:
-        """Test that the method raises a TypeError."""
-        with pytest.raises(TypeError):
-            _from_int(True)  # noqa: FBT003 (positional boolean argument)
-
-    def test_invalid_input(self) -> None:
-        """Test that the method raises a TypeError."""
-        with pytest.raises(TypeError):
-            _from_int("test")
-
-
-class TestFromBool(unittest.TestCase):
-    """Test the _from_bool method."""
-
-    def test_true_input(self) -> None:
-        """Test that the method returns True for a truthy value."""
-        self.assertTrue(_from_bool(1))
-
-    def test_false_input(self) -> None:
-        """Test that the method returns False for a falsy value."""
-        self.assertFalse(_from_bool(0))
-
-    def test_invalid_input(self) -> None:
-        """Test that the method raises a TypeError."""
-        with pytest.raises(TypeError):
-            _from_bool("test")
-
-
-class TestFromIntStr(unittest.TestCase):
-    """Test the _from_int_str method."""
-
-    def test_valid_input(self) -> None:
-        """Test that the method returns the expected value."""
-        self.assertEqual(_from_int_str("123"), 123)
-
-    def test_empty_string(self) -> None:
-        """Test that the method returns 0 for an empty string."""
-        self.assertEqual(_from_int_str(""), 0)
-
-    def test_invalid_input(self) -> None:
-        """Test that the method raises a TypeError."""
-        with pytest.raises(TypeError):
-            _from_int_str(123)
+from creality_wifi_box_client.box_info import BoxInfo
 
 
 class TestBoxInfo(unittest.TestCase):
     """Test the BoxInfo class."""
 
-    def test_from_dict(self) -> None:  # noqa: PLR0915
-        """Test creating a BoxInfo object from a dictionary."""
-        data: dict[str, Any] = {
+    def setUp(self) -> None:
+        """Set up the test data."""
+        self.data: dict[str, Any] = {
             "opt": "main",
             "fname": "Info",
             "function": "get",
@@ -148,7 +75,10 @@ class TestBoxInfo(unittest.TestCase):
             "led_state": 1,
             "error": 0,
         }
-        box_info = BoxInfo.from_dict(data)
+
+    def test_model_validate(self) -> None:
+        """Test creating a BoxInfo object from a dictionary."""
+        box_info = BoxInfo.model_validate(self.data)
 
         self.assertEqual(box_info.opt, "main")
         self.assertEqual(box_info.fname, "Info")
@@ -212,3 +142,9 @@ class TestBoxInfo(unittest.TestCase):
         self.assertEqual(box_info.total_layer, 1000)
         self.assertEqual(box_info.led_state, 1)
         self.assertEqual(box_info.error, False)
+
+    def test_consumables_len_empty_string(self) -> None:
+        """Test that an empty string for ConsumablesLen is converted to 0."""
+        self.data["ConsumablesLen"] = ""
+        box_info = BoxInfo.model_validate(self.data)
+        self.assertEqual(box_info.consumables_len, 0)
