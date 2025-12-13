@@ -62,9 +62,8 @@ keep-runtime-typing = true
 max-complexity = 25
 
 [tool.ruff.lint.per-file-ignores]
-# Ignore `S101` (use of assert)` and `SLF001` (private members)` in path/to/file.py`.
-"tests/test_box_info.py" = ["S101","SLF001","PT009"]
-"tests/test_wifi_box_client.py" = ["S101","PT009"]
+# Ignore `S101` (assert), `SLF001` (private access), and `PT009` (unittest assertions) in all test files
+"tests/**/*.py" = ["S101", "SLF001", "PT009"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
@@ -82,11 +81,5 @@ addopts = "--cov-report=xml:coverage.xml --cov-report=term-missing --cov=crealit
 [tool.coverage.report]
 exclude_also = [
     "raise NotImplementedError",
-    "if TYPE_CHECKING:",
-    "setup.py"
+    "if TYPE_CHECKING:"
 ]
-
-[tool.coverage.run]
-omit = [
-    "setup.py",
-    ]
