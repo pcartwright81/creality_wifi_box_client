@@ -76,13 +76,9 @@ class TestBoxInfo(unittest.TestCase):
             "error": 0,
         }
 
-    def test_model_validate(self) -> None:
-        """Test creating a BoxInfo object from a dictionary."""
+    def test_model_validate_network(self) -> None:
+        """Test validating network information."""
         box_info = BoxInfo.model_validate(self.data)
-
-        self.assertEqual(box_info.opt, "main")
-        self.assertEqual(box_info.fname, "Info")
-        self.assertEqual(box_info.function, "get")
         self.assertEqual(box_info.wanmode, "dhcp")
         self.assertEqual(box_info.wanphy_link, 1)
         self.assertEqual(box_info.link_status, 1)
@@ -95,8 +91,11 @@ class TestBoxInfo(unittest.TestCase):
         self.assertEqual(box_info.apclimac, "12:34:56:78:90:AB")
         self.assertEqual(box_info.iot_type, "Creality Cloud")
         self.assertEqual(box_info.connect, 1)
-        self.assertEqual(box_info.model, "Ender-3")
-        self.assertEqual(box_info.fan, 0)
+        self.assertEqual(box_info.net_ip, "192.168.1.101")
+
+    def test_model_validate_temperatures(self) -> None:
+        """Test validating temperature information."""
+        box_info = BoxInfo.model_validate(self.data)
         self.assertEqual(box_info.nozzle_temp, 200)
         self.assertEqual(box_info.bed_temp, 60)
         self.assertEqual(box_info.the_1_st_nozzle_temp, 200)
@@ -107,39 +106,51 @@ class TestBoxInfo(unittest.TestCase):
         self.assertEqual(box_info.the_1_st_nozzle_temp2, 200)
         self.assertEqual(box_info.the_2_nd_nozzle_temp2, 200)
         self.assertEqual(box_info.chamber_temp2, 40)
+
+    def test_model_validate_print_status(self) -> None:
+        """Test validating print status information."""
+        box_info = BoxInfo.model_validate(self.data)
         self.assertEqual(box_info.print_name, "Welcome to Creality")
         self.assertEqual(box_info.print_progress, 50)
         self.assertEqual(box_info.stop, 0)
         self.assertEqual(box_info.print_start_time, 1666666666)
         self.assertEqual(box_info.state, 1)
         self.assertEqual(box_info.err, 0)
+        self.assertEqual(box_info.d_progress, 10)
+        self.assertEqual(box_info.layer, 100)
+        self.assertEqual(box_info.pause, 0)
+        self.assertEqual(box_info.printed_times, 10)
+        self.assertEqual(box_info.times_left_to_print, 90)
+        self.assertEqual(box_info.cur_feedrate_pct, 100)
+        self.assertEqual(box_info.cur_position, "X10 Y20 Z30")
+        self.assertEqual(box_info.autohome, 0)
+        self.assertEqual(box_info.mcu_is_print, 1)
+        self.assertEqual(box_info.print_left_time, 3600)
+        self.assertEqual(box_info.print_job_time, 7200)
+        self.assertEqual(box_info.filament_type, "PLA")
+        self.assertEqual(box_info.consumables_len, 1000)
+        self.assertEqual(box_info.total_layer, 1000)
+
+    def test_model_validate_device_info(self) -> None:
+        """Test validating device information."""
+        box_info = BoxInfo.model_validate(self.data)
+        self.assertEqual(box_info.opt, "main")
+        self.assertEqual(box_info.fname, "Info")
+        self.assertEqual(box_info.function, "get")
+        self.assertEqual(box_info.model, "Ender-3")
+        self.assertEqual(box_info.fan, 0)
         self.assertEqual(box_info.box_version, "1.2.3")
         self.assertEqual(box_info.upgrade, "yes")
         self.assertEqual(box_info.upgrade_status, 0)
         self.assertEqual(box_info.tf_card, 1)
-        self.assertEqual(box_info.d_progress, 10)
-        self.assertEqual(box_info.layer, 100)
-        self.assertEqual(box_info.pause, 0)
         self.assertEqual(box_info.reboot, 0)
         self.assertEqual(box_info.video, 0)
         self.assertEqual(box_info.did_string, "abcdefg")
         self.assertEqual(box_info.api_license, "xyz")
         self.assertEqual(box_info.init_string, "123")
-        self.assertEqual(box_info.printed_times, 10)
-        self.assertEqual(box_info.times_left_to_print, 90)
         self.assertEqual(box_info.owner_id, "owner123")
-        self.assertEqual(box_info.cur_feedrate_pct, 100)
-        self.assertEqual(box_info.cur_position, "X10 Y20 Z30")
-        self.assertEqual(box_info.autohome, 0)
         self.assertEqual(box_info.repo_plr_status, 0)
         self.assertEqual(box_info.model_version, "4.5.6")
-        self.assertEqual(box_info.mcu_is_print, 1)
-        self.assertEqual(box_info.print_left_time, 3600)
-        self.assertEqual(box_info.print_job_time, 7200)
-        self.assertEqual(box_info.net_ip, "192.168.1.101")
-        self.assertEqual(box_info.filament_type, "PLA")
-        self.assertEqual(box_info.consumables_len, 1000)
-        self.assertEqual(box_info.total_layer, 1000)
         self.assertEqual(box_info.led_state, 1)
         self.assertEqual(box_info.error, False)
 
