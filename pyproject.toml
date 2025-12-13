@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "creality_wifi_box_client"
-version = "0.0.4"
+version = "0.1.0"
 license = { file = "LICENSE" }
 description = "Client for Creality Wifi Box"
 readme = "README.md"

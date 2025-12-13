@@ -69,10 +69,14 @@ class BoxInfo(BaseModel):
     led_state: int
     error: bool
 
-    @field_validator("consumables_len", mode="before")
+    @field_validator(
+        "consumables_len",
+        "print_start_time",
+        mode="before",
+    )
     @classmethod
-    def parse_empty_string_int(cls, v: str) -> str:
+    def parse_empty_string_int(cls, v: str | int) -> int:
         """Handle empty strings for integer fields."""
         if v == "":
             return 0
-        return v
+        return int(v)
