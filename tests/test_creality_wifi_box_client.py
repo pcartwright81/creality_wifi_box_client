@@ -234,9 +234,7 @@ async def test_close_no_session(client: CrealityWifiBoxClient) -> None:
 
 
 @pytest.mark.asyncio
-async def test_close_closed_session(
-    client: CrealityWifiBoxClient, mock_session: MagicMock
-) -> None:
+async def test_close_closed_session(client: CrealityWifiBoxClient, mock_session: MagicMock) -> None:
     """Test close when session is already closed."""
     # Setup: Create a session
     mock_response = AsyncMock()
