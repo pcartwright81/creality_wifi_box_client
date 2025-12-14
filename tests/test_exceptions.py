@@ -1,11 +1,11 @@
 """Tests for custom exceptions."""
 
 from creality_wifi_box_client.exceptions import (
+    ClientConnectionError,
     CommandError,
-    ConnectionError,
     CrealityWifiBoxError,
     InvalidResponseError,
-    TimeoutError,
+    RequestTimeoutError,
 )
 
 
@@ -17,15 +17,15 @@ def test_base_exception() -> None:
 
 
 def test_connection_error() -> None:
-    """Test ConnectionError."""
-    exc = ConnectionError("Connection failed")
+    """Test ClientConnectionError."""
+    exc = ClientConnectionError("Connection failed")
     assert str(exc) == "Connection failed"
     assert isinstance(exc, CrealityWifiBoxError)
 
 
 def test_timeout_error() -> None:
-    """Test TimeoutError."""
-    exc = TimeoutError("Request timed out")
+    """Test RequestTimeoutError."""
+    exc = RequestTimeoutError("Request timed out")
     assert str(exc) == "Request timed out"
     assert isinstance(exc, CrealityWifiBoxError)
 

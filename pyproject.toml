@@ -38,6 +38,7 @@ where = ["."]
 
 [tool.ruff]
 target-version = "py313"
+line-length = 120
 exclude = ["build", "dist", ".venv", "__pycache__"]
 
 [tool.ruff.lint]

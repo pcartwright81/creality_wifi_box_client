@@ -25,7 +25,7 @@ pip install creality-wifi-box-client
 import asyncio
 from creality_wifi_box_client import CrealityWifiBoxClient
 
-async def main():
+async def main() -> None:
     # Create client with context manager (recommended)
     async with CrealityWifiBoxClient("192.168.1.100", 8080) as client:
         # Get printer info
@@ -34,7 +34,7 @@ async def main():
         print(f"Print Progress: {info.print_progress}%")
         print(f"Nozzle Temperature: {info.nozzle_temp}°C")
         print(f"Bed Temperature: {info.bed_temp}°C")
-        
+
         # Control print job
         await client.pause_print()
         await asyncio.sleep(5)
@@ -46,9 +46,9 @@ asyncio.run(main())
 ### Manual Session Management
 
 ```python
-async def main():
+async def main() -> None:
     client = CrealityWifiBoxClient("192.168.1.100", 8080, timeout=30)
-    
+
     try:
         info = await client.get_info()
         print(f"Current file: {info.print_name}")
@@ -80,8 +80,8 @@ Retrieves comprehensive printer and box information.
 **Returns:** `BoxInfo` object with all device data
 
 **Raises:**
-- `ConnectionError`: Connection to box failed
-- `TimeoutError`: Request timed out
+- `ClientConnectionError`: Connection to box failed
+- `RequestTimeoutError`: Request timed out
 - `InvalidResponseError`: Malformed response
 
 ##### `async pause_print() -> bool`
@@ -91,8 +91,8 @@ Pauses the current print job.
 **Returns:** `True` if successful
 
 **Raises:**
-- `ConnectionError`: Connection failed
-- `TimeoutError`: Request timed out
+- `ClientConnectionError`: Connection failed
+- `RequestTimeoutError`: Request timed out
 - `CommandError`: Command failed on the box
 
 ##### `async resume_print() -> bool`
@@ -137,19 +137,19 @@ The library provides specific exceptions for different error scenarios:
 ```python
 from creality_wifi_box_client import (
     CrealityWifiBoxClient,
-    ConnectionError,
-    TimeoutError,
+    ClientConnectionError,
+    RequestTimeoutError,
     CommandError,
     InvalidResponseError,
 )
 
-async def safe_print_control():
+async def safe_print_control() -> None:
     async with CrealityWifiBoxClient("192.168.1.100", 8080) as client:
         try:
             await client.pause_print()
-        except ConnectionError:
+        except ClientConnectionError:
             print("Could not connect to printer")
-        except TimeoutError:
+        except RequestTimeoutError:
             print("Request timed out")
         except CommandError:
             print("Command failed on the printer")
