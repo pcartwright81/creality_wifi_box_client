@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "creality_wifi_box_client"
-version = "0.0.4"
+version = "0.1.0"
 license = { file = "LICENSE" }
 description = "Client for Creality Wifi Box"
 readme = "README.md"
@@ -38,6 +38,7 @@ where = ["."]
 
 [tool.ruff]
 target-version = "py313"
+line-length = 120
 exclude = ["build", "dist", ".venv", "__pycache__"]
 
 [tool.ruff.lint]
