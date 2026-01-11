@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "creality_wifi_box_client"
-version = "0.1.0"
+version = "0.1.1"
 license = { file = "LICENSE" }
 description = "Client for Creality Wifi Box"
 readme = "README.md"
@@ -18,7 +18,7 @@ classifiers = [
 ]
 urls = { Repository = "https://github.com/pcartwright81/creality_wifi_box_client" }
 dependencies = [
-    "aiohttp==3.13.3",
+    "aiohttp>=3.13.3",
     "colorlog==6.10.1",
     "pydantic",
 ]
