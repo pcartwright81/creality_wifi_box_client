@@ -19,7 +19,7 @@ classifiers = [
 urls = { Repository = "https://github.com/pcartwright81/creality_wifi_box_client" }
 dependencies = [
     "aiohttp>=3.13.3",
-    "colorlog==6.10.1",
+    "colorlog==6.11.0",
     "pydantic",
 ]
 
@@ -30,7 +30,7 @@ test = [
     "pytest-cov==7.1.0",
 ]
 dev = [
-    "ruff==0.15.20",
+    "ruff==0.15.22",
 ]
 
 [tool.setuptools.packages.find]
