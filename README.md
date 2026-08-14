@@ -25,6 +25,7 @@ pip install creality-wifi-box-client
 import asyncio
 from creality_wifi_box_client import CrealityWifiBoxClient
 
+
 async def main() -> None:
     # Create client with context manager (recommended)
     async with CrealityWifiBoxClient("192.168.1.100", 8080) as client:
@@ -39,6 +40,7 @@ async def main() -> None:
         await client.pause_print()
         await asyncio.sleep(5)
         await client.resume_print()
+
 
 asyncio.run(main())
 ```
@@ -142,6 +144,7 @@ from creality_wifi_box_client import (
     CommandError,
     InvalidResponseError,
 )
+
 
 async def safe_print_control() -> None:
     async with CrealityWifiBoxClient("192.168.1.100", 8080) as client:
